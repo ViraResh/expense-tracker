@@ -1,0 +1,22 @@
+<ul class="transaction-list">
+  <li *ngFor="let transaction of transactions$()">
+    <div class="transaction-item">
+      <div class="transaction-left">
+        <span class="transaction-name">{{ transaction.name }}</span>
+        <span class="transaction-category">
+          <mat-icon>{{ categoryIcons[transaction.category.toLowerCase()] || 'question_mark' }}</mat-icon>
+          {{ transaction.category }}
+        </span>
+        <span class="transaction-date">{{ transaction.date | date }}</span>
+      </div>
+      <div class="transaction-right">
+        <span class="transaction-amount" [ngStyle]="{ color: getAmountColor(transaction) }">
+          {{ transaction.type === 'expense' ? '-' : '+' }}{{ transaction.amount | currency }}
+        </span>
+        <button mat-icon-button (click)="transactionService.removeTransaction(transaction.id)" class="remove-btn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>
